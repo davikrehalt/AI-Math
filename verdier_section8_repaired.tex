@@ -1,0 +1,591 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,mathtools,amsthm,mathrsfs}
+\usepackage[margin=24mm,headheight=14pt]{geometry}
+\usepackage{fancyhdr,lastpage,tikz-cd}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 1pt}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[2]
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Specialization of sheaves}
+\fancyhead[R]{\small Quotient formulation}
+\fancyfoot[C]{\small\thepage\,/\,\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\newcommand{\A}{\mathbf A}
+\newcommand{\Gm}{\mathbf G_m}
+\newcommand{\Z}{\mathbf Z}
+\newcommand{\Q}{\mathbf Q}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Sp}{\operatorname{Sp}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\wt}{\operatorname{wt}}
+\newcommand{\pr}{\operatorname{pr}}
+\newcommand{\fib}{\operatorname{fib}}
+\newcommand{\cofib}{\operatorname{cofib}}
+\newcommand{\colim}{\operatorname*{colim}}
+\newcommand{\Det}{\mathcal D_{\acute et}}
+\newcommand{\Dc}{\mathcal D^b_c}
+\newcommand{\DD}{\mathbb D}
+\newcommand{\cA}{\mathscr A}
+\newcommand{\cD}{\mathscr D}
+\newcommand{\cC}{\mathscr C}
+\newcommand{\cP}{\mathscr P}
+\newcommand{\cZ}{\mathscr Z}
+\newcommand{\cY}{\mathscr Y}
+\newcommand{\cW}{\mathscr W}
+\newcommand{\cB}{\mathscr B}
+\newcommand{\Rinf}{\mathcal R_\infty}
+\newtheoremstyle{notes}{6pt}{4pt}{\normalfont}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{notes}
+\newtheorem{geom}{Lemma}[section]
+\newtheorem{alem}{Lemma}[section]
+\newtheorem{blem}{Lemma}[section]
+\newtheorem{bprop}[blem]{Proposition}
+\renewcommand{\theequation}{8.\arabic{equation}}
+\renewcommand{\theHequation}{8.\arabic{equation}}
+\hypersetup{pdftitle={Specialization of sheaves: quotient formulation},pdfauthor={},
+pdfsubject={Affine interpolation proof of hyperbolic exchange and specialization on the tame root quotient}}
+
+\begin{document}
+\setcounter{section}{8}
+\section*{8. Specialization of sheaves}
+
+Let $k$ be a discrete field of characteristic $p>0$, and let $\Lambda$ be a finite discrete commutative ring in which $p$ is invertible. Put
+\[
+M=\Z_{(p)},\qquad T=\Spec k[M],\qquad
+S_\infty=\Spec k[t^q:q\in M,\ q\geq0],\qquad \cA=[S_\infty/T].
+\]
+The action is specified by $\wt(t^q)=q$. The open complement of the origin of $S_\infty$ is $T$, so the complementary immersions and the projection are
+\[
+u:\Spec k\hookrightarrow\cA,\qquad o:BT\hookrightarrow\cA,
+\qquad q:\cA\longrightarrow BT,\qquad qo\simeq\operatorname{id}_{BT}.
+\]
+All stacks are fpqc sheaves of Spaces on classical $k$-schemes. We use hypercomplete étale $\Lambda$-modules; for a classical $T$-scheme $W$, their category on the quotient is defined by descent:
+\[
+\Det([W/T],\Lambda)=\lim_{[n]\in\Delta}\Det(W\times T^n,\Lambda).
+\]
+The transition functors are pullbacks along the action groupoid; the same definition applies to finite products of $T$. The full subcategory $\Det^+$ consists of objects $H$ satisfying $\pi_i(H)=0$ for all sufficiently large $i$; $\Dc$ denotes bounded constructible objects. All functors below are functors of stable categories.
+
+\subsection*{8.1. The quotient deformation}
+
+Let $X$ be a separated classical $k$-scheme of finite type and $i:Z\hookrightarrow X$ a closed immersion. Write $C=C_{Z/X}$ for the normal cone. On an affine open $\Spec R\subseteq X$, let $I\subseteq R$ define $Z$, and set
+\begin{equation}\label{eq:algebra}
+\Rinf(R,I)=R[t^q:q\in M_{\geq0},\ I/t]\subseteq R[t^q:q\in M],
+\qquad \wt(R)=0,\quad \wt(f/t)=-1.
+\end{equation}
+The notation $I/t$ means the generators $f/t$ for $f\in I$. These graded algebras glue to a classical $T$-scheme $D_\infty$ over $X$. Put
+\[
+\cD=[D_\infty/T],\qquad \cC=[C/T],\qquad
+\cP=Z\times\cA,\qquad \cZ=Z\times BT.
+\]
+The action on $C$ has weight $-1$ in the normal directions. For a regular immersion, $C=N_{Z/X}$.
+
+\begin{geom}[Geometry and functoriality]\label{lem:geometry}
+The open and closed strata of $\cD\to\cA$ are
+\[
+X\xrightarrow{\ j\ }\cD\xleftarrow{\ b\ }\cC.
+\]
+There is a Cartesian square
+\begin{equation}\label{eq:deformation-square}
+\begin{tikzcd}[column sep=large,row sep=large]
+\cZ\ar[r,"s"]\ar[d,"z"']&\cC\ar[d,"b"]\\
+\cP\ar[r,"a"']&\cD.
+\end{tikzcd}
+\end{equation}
+If $f:X'\to X$ is a morphism of separated classical $k$-schemes of finite type and $Z'=Z\times_X X'$, the induced morphism $\widetilde f:\cD'\to\cD$ is representable. It is proper if $f$ is proper and smooth if $f$ is smooth. Its restrictions to the strata are $f$ and $c:[C_{Z'/X'}/T]\to[C_{Z/X}/T]$, and both squares of strata are Cartesian.
+\end{geom}
+
+\begin{proof}
+For $q\in M$, the homogeneous component of \eqref{eq:algebra} is
+\begin{equation}\label{eq:graded-pieces}
+\Rinf(R,I)_q=I^{\max(0,\lceil-q\rceil)}t^q,\qquad I^0=R.
+\end{equation}
+Indeed, a monomial using $m$ generators from $I/t$ has coefficient in $I^m$ and exponent $q=r-m$ for some $r\geq0$. The least possible $m$ is $\max(0,\lceil-q\rceil)$. This also proves compatibility with localization in $R$.
+
+Inverting $t$ gives $R[t^q:q\in M]$, whose spectrum is $\Spec R\times T$; its quotient is $\Spec R$. Killing all $t^r$, $r>0$, kills every nonintegral negative weight and replaces the weight $-m$ component by $I^m/I^{m+1}$. More explicitly, writing $I_{<0}$ and $I_{>0}$ for the ideals generated by the indicated weights, one obtains
+\begin{equation}\label{eq:signed-quotients}
+\begin{aligned}
+\Rinf(R,I)/I_{<0}&\simeq(R/I)[t^q:q\in M_{\geq0}],\\
+\Rinf(R,I)/I_{>0}&\simeq\bigoplus_{m\geq0}I^m/I^{m+1},\\
+\Rinf(R,I)/(I_{<0}+I_{>0})&\simeq R/I.
+\end{aligned}
+\end{equation}
+For the first identity, $I_{<0}=(I/t)\Rinf(R,I)$. For the second, $I_{>0}=(t^r:r>0)$: a nonintegral negative component factors through $t^{q+\lceil-q\rceil}$, whereas in degree $-m$ this ideal contributes exactly $I^{m+1}t^{-m}$. These identities give the strata and \eqref{eq:deformation-square}.
+
+For a ring map $R\to R'$, with $I'=IR'$, there is a surjection
+\[
+\Rinf(R,I)\otimes_R R'\longrightarrow\Rinf(R',I').
+\]
+It is an isomorphism when $R'$ is flat over $R$, by \eqref{eq:graded-pieces}. Thus $D'_\infty\to X'\times_X D_\infty$ is a closed immersion, and is an isomorphism in the flat case. Composition with the pullback of $f$ proves properness; the flat case proves smoothness. The statements descend to the quotients. The strata are pulled back from $\cA$, giving the Cartesian assertions.
+\end{proof}
+
+For $F\in\Dc(X,\Lambda)$, take as definition
+\begin{equation}\label{eq:sp-definition}
+\boxed{\ \Sp_{Z/X}(F)=b^*j_*F\quad\text{in }\Dc(\cC,\Lambda).\ }
+\end{equation}
+We assume the quotient construction and its bounded constructibility. No comparison with full nearby cycles is needed below. Root-line contraction, affine interpolation, and the extension of hyperbolic exchange are proved in Appendix B; the continuity and descent used there are explained in Appendix A.
+
+\subsection*{8.2. Specialization properties}
+
+\paragraph{(SP0) Étale localization.}
+For an étale $f:X'\to X$, with $Z'=Z\times_X X'$, there is a canonical isomorphism
+\[
+c^*\Sp_{Z/X}(F)\xrightarrow{\sim}\Sp_{Z'/X'}(f^*F).
+\]
+Indeed, $\widetilde f$ is the pullback of $f$ by Lemma~\ref{lem:geometry}; étale base change for $j_*$, followed by $b'^*$, gives the assertion. Pullback along an étale cover is conservative, so the comparison maps can also be checked locally on $X$.
+
+\paragraph{(SP1) Quotient equivariance.}
+The object \eqref{eq:sp-definition} is a sheaf on $\cC=[C/T]$. The comparison maps below are morphisms in the displayed categories on quotient stacks. This follows from the definition and descent for the sheaf operations in Appendix A.
+
+\paragraph{(SP2) Proper direct image.}
+For a proper $f$ as in Lemma~\ref{lem:geometry}, $c$ is proper and
+\begin{equation}\label{eq:proper}
+\Sp_{Z/X}(f_*F')\xrightarrow{\sim}c_*\Sp_{Z'/X'}(F'),
+\qquad F'\in\Dc(X',\Lambda).
+\end{equation}
+Composition of right adjoints and proper base change give exactly this comparison:
+\[
+b^*j_*f_*F'\simeq b^*\widetilde f_*j'_*F'
+\xrightarrow{\sim}c_*b'^*j'_*F'.
+\]
+
+\paragraph{(SP3) Smooth base change.}
+For a smooth $f$, $c$ is smooth and
+\begin{equation}\label{eq:smooth}
+c^*\Sp_{Z/X}(F)\xrightarrow{\sim}\Sp_{Z'/X'}(f^*F).
+\end{equation}
+Here $\widetilde f$ is the pullback of $f$, and smooth base change in the open square gives
+\[
+c^*b^*j_*F\simeq b'^*\widetilde f^*j_*F
+\xrightarrow{\sim}b'^*j'_*f^*F.
+\]
+
+\paragraph{(SP4) Verdier duality.}
+Let $I_\Lambda=\Hom_{\Z}(\Lambda,\Q/\Z)$, a discrete injective $\Lambda$-module. For the structure morphisms $a_X:X\to\Spec k$ and $a_C:\cC\to BT$, define
+\[
+\DD_XF=\underline{\Hom}_\Lambda(F,a_X^!I_\Lambda),\qquad
+\DD_C^TG=\underline{\Hom}_\Lambda(G,a_C^!I_{\Lambda,BT}),
+\]
+where $I_{\Lambda,BT}$ is the constant sheaf on $BT$. The duality comparison is an isomorphism
+\begin{equation}\label{eq:duality}
+\Sp_{Z/X}(\DD_XF)\xrightarrow{\sim}\DD_C^T\Sp_{Z/X}(F).
+\end{equation}
+For finite field coefficients this is the duality theorem for tame cycles on the quotient root construction \cite[Theorem 8.5]{CP}; the target duality is relative to $BT$. This is the external nearby-cycle theorem used here.
+
+For completeness, the passage to a finite coefficient ring is formal. If $\kappa$ is a residue field of $\Lambda$, coefficient adjunction gives
+\[
+\Hom_\Lambda(\kappa,I_\Lambda)\simeq
+\Hom_\Z(\kappa,\Q/\Z)=I_\kappa;
+\]
+this object has only $\pi_0$ nonzero, since $I_\Lambda$ is injective. Coinduction commutes with the exceptional pullbacks by adjunction. Thus $\Lambda$-duality on an object with $\kappa$-action is $\kappa$-duality, regarded as a $\Lambda$-module; specialization also commutes with restriction of scalars. The duality comparison respects these identifications. For a constructible object $L$ with only $\pi_0$ nonzero, the filtration $J^rL$, where $J$ is the Jacobson radical of $\Lambda$, has finitely many nonzero successive quotients, all over the product of finite fields $\Lambda/J$. Exactness proves \eqref{eq:duality} for $L$, and finite Postnikov filtrations prove it for every $F\in\Dc(X,\Lambda)$.
+
+\paragraph{(SP5) Restriction to the vertex.}
+Let $\rho_Z:\cZ=Z\times BT\to Z$ be the projection. The canonical map is an isomorphism
+\begin{equation}\label{eq:vertex}
+\boxed{\ \rho_Z^*i^*F\xrightarrow{\sim}s^*\Sp_{Z/X}(F).\ }
+\end{equation}
+It is induced by the unit $r^*F\to j_*F$, where $r:\cD\to X$ is the structure morphism.
+
+To prove it, first apply Proposition~\ref{prop:exchange} directly to the algebra \eqref{eq:algebra}. If $I=(f_1,\ldots,f_m)$, its degree-zero ring is $R$, and
+\[
+\Rinf(R,I)\text{ is integral over }R[t,f_1/t,\ldots,f_m/t],
+\]
+because $(t^{a/n})^n=t^a$ for $a\geq0$ and $(n,p)=1$. By \eqref{eq:signed-quotients}, its positive, negative and fixed quotient loci are $\cP$, $\cC$, and $\cZ$, respectively. The exchange isomorphism needed below is therefore
+\begin{equation}\label{eq:exchange-application}
+s^*b^!H\xrightarrow{\sim}z^!a^*H
+\qquad(H\in\Det^+(\cD,\Lambda)).
+\end{equation}
+These canonical maps agree on affine overlaps, hence give \eqref{eq:exchange-application} globally.
+
+Set $H=j_*F\in\Det^+(\cD,\Lambda)$ and let $u_Z:Z\hookrightarrow\cP$ be the open immersion. Localization gives $b^!H=0$. Equation~\eqref{eq:exchange-application} gives $z^!a^*H=0$, so localization on $\cP$ identifies its adjunction unit with an isomorphism
+\begin{equation}\label{eq:repeller}
+a^*j_*F\xrightarrow{\sim}(u_Z)_*i^*F.
+\end{equation}
+Pullback along $z$ and Lemma~\ref{lem:root} give
+\[
+s^*\Sp_{Z/X}(F)\simeq z^*a^*j_*F
+\xrightarrow{\sim}z^*(u_Z)_*i^*F\simeq\rho_Z^*i^*F.
+\]
+The composite of the map in \eqref{eq:vertex} with this isomorphism is the restriction of the constant-family unit on $\cP$. Lemma~\ref{lem:root} identifies it with the identity. Hence this isomorphism is the inverse of the stated canonical map.
+
+\paragraph{(SP6) Normalization for a principal Cartier divisor.}
+Suppose $Z$ is the effective Cartier divisor defined by $f:X\to\A^1$. Then $C=Z\times\A^1_v$, with $v=f/t$ of weight $-1$. Let $\chi_1:T\to\Gm$ be the character corresponding to $1\in M$, put $K=\ker(\chi_1)$, and define the stack and its complementary immersions
+\[
+\mathscr X_f=[(X\times_{\A^1,f}S_\infty)/K],\qquad
+j_f:X\setminus Z\hookrightarrow\mathscr X_f,\qquad
+b_f:Z\times BK\hookrightarrow\mathscr X_f,
+\]
+using positive deck multiplication on $S_\infty$. Define
+\[
+\Psi_f^t(G)=b_f^*(j_f)_*G\quad\text{in }\Det(Z\times BK,\Lambda)
+\qquad(G\in\Dc(X\setminus Z,\Lambda)).
+\]
+The slice $v=1$ gives an open immersion $\epsilon:Z\times BK\hookrightarrow\cC$ and a canonical isomorphism
+\begin{equation}\label{eq:normalization}
+\epsilon^*\Sp_{Z/X}(F)\simeq\Psi_f^t(F|_{X\setminus Z}).
+\end{equation}
+Indeed, the algebra \eqref{eq:algebra} has equation $f(x)=tv$. Since $T\to\Gm$ is fpqc surjective, the quotient on $v\ne0$ is obtained from the slice $v=1$ by quotienting by its stabilizer $K$. On this slice $t=f(x)$, and the residual action on its roots is positive deck multiplication. Thus
+\[
+[D_{\infty,v\ne0}/T]\simeq\mathscr X_f.
+\]
+Open base change for $j_*$ followed by closed restriction proves \eqref{eq:normalization}.
+
+\paragraph{The closed substack defined by $t$.}
+The natural closed immersion
+\[
+\cC\longrightarrow[(D_\infty)_{t=0}/T]
+\]
+is a representable universal homeomorphism. Its ideal is generated by the images of $t^q$, $q>0$. Each is nilpotent modulo $t$, since $mq\geq1$ for some integer $m>0$. Every element of the generated ideal is a finite sum of nilpotent elements and is therefore nilpotent. Topological invariance identifies the étale sheaf categories \cite[Tag 04DZ]{Stacks}. The actual closed fiber used in \eqref{eq:sp-definition} kills all positive roots and is exactly $\cC$.
+
+\section*{Appendix A. Continuity and descent}
+\renewcommand{\theequation}{A.\arabic{equation}}
+\renewcommand{\theHequation}{A.\arabic{equation}}\setcounter{equation}{0}
+
+We use the ordinary étale localization, proper base change, smooth base change, projective bundle formula, and relative purity theorems, with torsion coefficients invertible on the schemes. In particular, for complementary immersions $i:Z\hookrightarrow W$ and $j:U\hookrightarrow W$, there are fiber sequences
+\[
+j_!j^*H\longrightarrow H\longrightarrow i_*i^*H,
+\qquad i_*i^!H\longrightarrow H\longrightarrow j_*j^*H.
+\]
+The functor $i^!$ is right adjoint to $i_*$; neither requires finite presentation of $i$. Proper base change allows arbitrary pullback. Smooth base change applies to the pushforward of a quasi-compact quasi-separated morphism on $\Det^+$; open base change has no such restriction. See \cite[Sections 59.89 and 59.91]{Stacks}.
+
+For a representable separated finite-type morphism $f$, direct image with proper support is defined locally by a compactification $f=\overline f\,j$ as $f_!=\overline f_*j_!$. It preserves $\Det^+$ and commutes with arbitrary pullback, by proper base change and base change for extension by zero \cite[Section 63.9, especially Lemma 63.9.4]{Stacks}. These assertions require no noetherian hypothesis on the base. The $!$-pushforwards below are for morphisms of finite presentation; in particular this applies to the nonflat pullback to the root-line origin. Arbitrary base change supplies their descent to the quotient stacks.
+
+\paragraph{Continuity.}
+Let $B$ be affine and $(W_n\to B)_n$ a directed inverse system of quasi-compact quasi-separated schemes with affine transition maps. Set $W_\infty=\lim_n W_n$, let $r_n:W_\infty\to W_n$ be the projections, and write $f_n,f_\infty$ for the structure morphisms. For a compatible system $H_n\in\Det^+(W_n,\Lambda)$ satisfying
+\[
+\exists N\in\Z\quad \pi_i(H_n)=0\quad(i>N,\ \text{every }n),
+\]
+one has
+\begin{equation}\label{eq:continuity}
+\colim_n(f_n)_*H_n\xrightarrow{\sim}
+(f_\infty)_*\bigl(\colim_n r_n^*H_n\bigr).
+\end{equation}
+Here is the continuity argument. Étale objects of finite presentation over $W_\infty$, finite diagrams between them, and finite covering families descend to a stage $W_n$. On the quasi-compact étale basis, a cohomology class in degree $r$ of a discrete sheaf, and the data witnessing an equality of classes, can be represented on an étale hypercover through degree $r+1$. Those finite data descend. This proves continuity for discrete sheaves. For the displayed uniformly bounded objects, the Postnikov spectral sequences have finitely many terms contributing to each degree; continuity therefore holds in each homotopy group. Hypercompleteness gives the isomorphism of objects. Applying this on affine étale objects of $B$ gives \eqref{eq:continuity}; compare \cite[Tags 09Z1 and 0EZM]{Stacks}.
+
+If $g:B'\to B$ is an inverse limit of smooth $B$-schemes with affine transition maps and $f:W\to B$ is quasi-compact and quasi-separated, applying \eqref{eq:continuity} to ordinary smooth base change gives
+\begin{equation}\label{eq:limit-basechange}
+g^*f_*H\xrightarrow{\sim}f'_*g'^*H
+\quad(H\in\Det^+(W,\Lambda))
+\end{equation}
+in the Cartesian square for $f$ and $g$ \cite[Tag 0F09]{Stacks}.
+
+\paragraph{Descent to the quotients.}
+For an equivariant morphism $W\to V$, the morphism in degree $n$ of the action groupoids is $W\times T^n\to V\times T^n$. If it is quasi-compact and quasi-separated, \eqref{eq:limit-basechange} supplies the compatibility of pushforward with the presentations and face maps. Indeed, a $T$-torsor is the inverse limit of its associated $\Gm$-torsors; these are smooth, with affine transition maps. The action groupoid face maps have this form, or are composites of such maps and isomorphisms. A degeneracy is a section of a face map. Its compatibility on a descent object follows from the face compatibility and composition of the base-change transformations.
+
+The degreewise right adjoints consequently assemble to the right adjoint on the limit of categories. Evaluation in degree zero is conservative. Proper base change and localization descend in the same way. Statements involving closed exceptional restriction follow from adjunction to closed pushforward base change; arbitrary base change for exceptional restriction is not being asserted.
+
+For an integral morphism, pushforward on discrete étale modules is exact and faithful, and commutes with arbitrary base change \cite[Tags 04C2 and 0EYP]{Stacks}. The resulting functor on $\Det^+$ is $t$-exact and conservative. Applied in every degree of the action groupoids, these facts give the same assertions for representable integral morphisms of the quotients. A universal homeomorphism induces an isomorphism of étale sheaf categories, also degreewise; this includes closed immersions defined by nil ideals that are not nilpotent \cite[Tag 04DZ]{Stacks}.
+
+\section*{Appendix B. Contraction and hyperbolic exchange}
+\setcounter{section}{2}\setcounter{blem}{0}
+\renewcommand{\theblem}{B.\arabic{blem}}
+\renewcommand{\theequation}{B.\arabic{equation}}
+\renewcommand{\theHequation}{B.\arabic{equation}}\setcounter{equation}{0}
+
+\begin{blem}[Contraction on the quotient root line]\label{lem:root}
+For a classical $k$-scheme $B$, write
+\[
+q_B:B\times\cA\to B\times BT,\qquad \rho_B:B\times BT\to B,
+\qquad u_B:B\hookrightarrow B\times\cA,\qquad o_B:B\times BT\hookrightarrow B\times\cA.
+\]
+Let $e_B:B\to B\times BT$ classify the trivial $T$-torsor. For $H\in\Det^+(B\times\cA,\Lambda)$ and $L\in\Det^+(B,\Lambda)$, the canonical maps are isomorphisms
+\begin{align}
+(q_B)_*H&\xrightarrow{\sim}o_B^*H,\label{eq:root-contraction}\\
+\rho_B^*L&\xrightarrow{\sim}(e_B)_*L\xrightarrow{\sim}o_B^*(u_B)_*L.\label{eq:root-constant}
+\end{align}
+\end{blem}
+
+\begin{proof}
+We first compute the two units
+\begin{equation}\label{eq:two-units}
+L\xrightarrow{\sim}(B\times S_\infty\to B)_*\pr_B^*L,
+\qquad
+L\xrightarrow{\sim}(B\times T\to B)_*\pr_B^*L.
+\end{equation}
+For the first, compactify $\A^1_B$ to $\mathbf P^1_B$. The projective bundle formula and relative purity for the section at infinity give the localization sequence after pushforward
+\[
+L(-1)[-2]\longrightarrow L\oplus L(-1)[-2]
+\longrightarrow(\A^1_B\to B)_*\pr_B^*L,
+\]
+whose first arrow is the inclusion of the second summand. This proves ordinary $\A^1$-homotopy invariance, with no regularity assumption on $B$. Continuity along the root lines proves the first map in \eqref{eq:two-units}.
+
+For the second, localization and relative purity at the zero section identify
+\[
+\cofib\bigl(L\longrightarrow(\Gm\times B\to B)_*\pr_B^*L\bigr)
+\simeq L(-1)[-1].
+\]
+Under the relative Kummer-class identification, pullback by the power map of degree $d$ is multiplication by $d$ on this cofiber: the Kummer boundary of $t^d$ is $d$ times that of $t$. This calculation first applies to discrete sheaves and extends to $\Det^+$ by Postnikov truncations and their spectral sequences. The allowed degrees include an integer annihilating $\Lambda$; hence the filtered colimit of these cofibers is zero. Continuity proves the second map in \eqref{eq:two-units}. No finite root level for $L$ or $H$ has been chosen.
+
+Pullback along the presentation $e_B$, with Appendix A, identifies the units
+\[
+\rho_B^*L\longrightarrow(q_B)_*q_B^*\rho_B^*L,
+\qquad \rho_B^*L\longrightarrow(e_B)_*L
+\]
+with the two maps in \eqref{eq:two-units}. Both are therefore isomorphisms. Applying $(q_B)_*$ to localization for $q_B^*\rho_B^*L$ gives $(q_B)_*(u_B)_!L=0$, since $q_Bo_B\simeq\operatorname{id}$. Apply this vanishing to $L=u_B^*H$ and use localization for $H$ to obtain \eqref{eq:root-contraction}. Finally,
+\[
+o_B^*(u_B)_*L\simeq(q_B)_*(u_B)_*L=(e_B)_*L\simeq\rho_B^*L,
+\]
+which proves \eqref{eq:root-constant}. All maps are the restriction maps and adjunction units specified in the statement.
+\end{proof}
+
+\paragraph{Specialization from contraction.}
+For any quotient stack $\mathscr B$ occurring below, use the first factor for the parameter:
+\[
+q_{\mathscr B}:\cA\times\mathscr B\to BT\times\mathscr B.
+\]
+Write $o_{\mathscr B},u_{\mathscr B}$ for the closed and open immersions, and $e_{\mathscr B}:\mathscr B\to BT\times\mathscr B$ for the trivial parameter torsor. Lemma~\ref{lem:root} applies by descent. For $K\in\Det^+(\cA\times\mathscr B,\Lambda)$, set
+\[
+K_0=e_{\mathscr B}^*o_{\mathscr B}^*K,\qquad K_1=u_{\mathscr B}^*K.
+\]
+Restriction and the counit of $q_{\mathscr B}^*\dashv(q_{\mathscr B})_*$ define
+\begin{equation}\label{eq:parameter-specialization}
+\sigma_K:K_0\simeq e_{\mathscr B}^*(q_{\mathscr B})_*K
+\simeq u_{\mathscr B}^*q_{\mathscr B}^*(q_{\mathscr B})_*K
+\longrightarrow K_1.
+\end{equation}
+For $N\in\Det^+(BT\times\mathscr B,\Lambda)$, one has
+\begin{equation}\label{eq:constant-specialization}
+\sigma_{q_{\mathscr B}^*N}=\operatorname{id}_{e_{\mathscr B}^*N}.
+\end{equation}
+Indeed, the unit $N\to(q_{\mathscr B})_*q_{\mathscr B}^*N$ is inverse to restriction; the assertion follows from the adjunction identity.
+
+These maps commute with ordinary inverse image and with direct image with proper support in the $\mathscr B$ variable. For a representable separated finite-type morphism $f:\mathscr B\to\mathscr C$, write $f_{\cA},f_{BT}$ for its base changes. The mate
+\[
+(f_{BT})_!(q_{\mathscr B})_*
+\longrightarrow(q_{\mathscr C})_*(f_{\cA})_!
+\]
+is adjoint to
+\[
+q_{\mathscr C}^*(f_{BT})_!(q_{\mathscr B})_*
+\simeq(f_{\cA})_!q_{\mathscr B}^*(q_{\mathscr B})_*
+\longrightarrow(f_{\cA})_!.
+\]
+Composing with restriction identifies it with $(f_{BT})_!$ of
+$(q_{\mathscr B})_*K\to o_{\mathscr B}^*K$, followed by
+\[
+(f_{BT})_!o_{\mathscr B}^*K
+\simeq o_{\mathscr C}^*(f_{\cA})_!K.
+\]
+It is therefore an isomorphism. Compatibility of the units and counits proves the assertion for $f_!$. For $f^*$, the usual base-change map for $q_*$ becomes the tautological base-change isomorphism for $o^*$ under contraction; the same calculation applies. Only \eqref{eq:root-contraction} is used here.
+
+\begin{blem}[Affine interpolation]\label{lem:affine}
+Let $V=V_+\oplus V_-$ be a finite-rank vector bundle on a classical $k$-scheme $B$, with $T$ acting trivially on $B$. Suppose each summand decomposes into character subbundles, with all weights of $V_+$ positive and all weights of $V_-$ negative. Put
+\[
+\mathscr V=[V/T],\qquad
+\mathscr V^\pm=[V_\pm/T],\qquad
+\mathscr V^0=B\times BT.
+\]
+Let $a:\mathscr V^+\hookrightarrow\mathscr V$ and $b:\mathscr V^-\hookrightarrow\mathscr V$ be the inclusions, $q_\pm:\mathscr V^\pm\to\mathscr V^0$ the projections, and $z,s$ their zero sections. On the indicated $\Det^+$ categories, the functors
+\[
+E=b_*q_-^*,\qquad L=(q_+)_!a^*
+\]
+satisfy $E\dashv L$. Moreover, the canonical exchange map is an isomorphism
+\begin{equation}\label{eq:linear-exchange}
+s^*b^!H\longrightarrow s^*b^!a_*a^*H
+\simeq z^!a^*H
+\qquad(H\in\Det^+(\mathscr V,\Lambda)).
+\end{equation}
+\end{blem}
+
+\begin{proof}
+\emph{The correspondence.}
+Set $W=S_\infty\times_k(V_+\times_B V_-)$ and define
+\begin{equation}\label{eq:affine-endpoints}
+p_1(t,x,y)=\bigl(x,(t^{-q}y_q)_{q<0}\bigr),\qquad
+p_2(t,x,y)=\bigl((t^qx_q)_{q>0},y\bigr).
+\end{equation}
+All exponents are nonnegative. At $t=1$, both endpoints are the identity of $V$. At the origin they are $a\pr_+$ and $b\pr_-$ on the underlying schemes.
+
+For the character $\chi_q:T\to\Gm$, let $T\times T$ act by
+\[
+(g,h)(t,x_q,y_q)=\bigl(ht,\chi_q(g)x_q,\chi_q(gh)y_q\bigr).
+\]
+The first endpoint is equivariant for $(g,h)\mapsto g$; the parameter and second endpoint are equivariant for $(g,h)\mapsto(h,gh)$. Thus, with $\mathscr W=[W/(T\times T)]$, there is a correspondence
+\begin{equation}\label{eq:affine-correspondence}
+\mathscr V\xleftarrow{\ r_1\ }\mathscr W
+\xrightarrow{\ r_2\ }\cA\times\mathscr V.
+\end{equation}
+The second homomorphism of groups is an isomorphism. Pulling $r_2$ to the target presentation therefore gives $(t,x,y)\mapsto(t,(t^qx_q)_{q>0},y)$, an affine morphism of finite presentation: locally its algebra is obtained by adjoining the finitely many $x_q$ and imposing the relations $X_q=t^qx_q$.
+
+For $H\in\Det^+(\mathscr V,\Lambda)$, define
+\[
+\mathcal K(H)=(r_2)_!r_1^*H
+\quad\text{in }\Det^+(\cA\times\mathscr V,\Lambda).
+\]
+Base change for $!$ gives
+\begin{equation}\label{eq:interpolation-fibers}
+\mathcal K(H)_1\simeq H,\qquad
+\mathcal K(H)_0\simeq b_*q_-^*(q_+)_!a^*H=ELH.
+\end{equation}
+For the second formula, trivializing the parameter torsor sets $h=1$ and identifies the two endpoint torsors. The resulting correspondence is exactly
+\[
+\mathscr V\xleftarrow{\ a\pr_+\ }
+\mathscr V^+\times_{\mathscr V^0}\mathscr V^-
+\xrightarrow{\ b\pr_-\ }\mathscr V.
+\]
+Equation~\eqref{eq:parameter-specialization} now gives $\varepsilon:EL\to\operatorname{id}$.
+
+\emph{The unit and the two identities.}
+Closed base change gives a canonical isomorphism
+\begin{equation}\label{eq:intersection-unit}
+\theta:LE=(q_+)_!a^*b_*q_-^*
+\simeq(q_+)_!z_*s^*q_-^*\simeq\operatorname{id}.
+\end{equation}
+Set $\eta=\theta^{-1}$. We verify the adjunction identities by the scheme-theoretic equalities
+\begin{equation}\label{eq:affine-fiber-products}
+p_1^{-1}(V_-)=S_\infty\times V_-,
+\qquad p_2^{-1}(V_+)=S_\infty\times V_+.
+\end{equation}
+They impose respectively $x=0$ and $y=0$. These are the linear instances of the affine identities in \cite[Proposition 2.6.3 and Remark 2.6.5]{DG}.
+
+To retain the parameter torsor explicitly, let
+\[
+\delta:BT\times\mathscr V^0\longrightarrow\mathscr V^0
+\]
+preserve $B$ and be induced on torsors by $(h,u)\mapsto uh^{-1}$. For $G\in\Det^+(\mathscr V^0,\Lambda)$, put
+\[
+N_E(G)=(\operatorname{id}_{BT}\times b)_*
+\bigl(\delta\circ(\operatorname{id}_{BT}\times q_-)\bigr)^*G
+\quad\text{in }\Det^+(BT\times\mathscr V,\Lambda).
+\]
+The first equality in \eqref{eq:affine-fiber-products} gives
+\begin{equation}\label{eq:first-triangle-family}
+\mathcal K(EG)\simeq q_{\mathscr V}^*N_E(G).
+\end{equation}
+Indeed, on $x=0$ the second endpoint is $\operatorname{id}_{\cA}\times b$, and the input depends on the first endpoint torsor $g=u h^{-1}$. It is therefore the indicated pullback from $BT\times\mathscr V^-$. At the trivial parameter torsor both fibers are $EG$. The zero-fiber identification $ELEG\simeq EG$ is $E\theta_G$, since it uses the same closed intersection as \eqref{eq:intersection-unit}. Equation~\eqref{eq:constant-specialization} gives
+\[
+\varepsilon_{EG}=E\theta_G,\qquad
+(\varepsilon E)\circ(E\eta)=\operatorname{id}_E.
+\]
+
+For the second identity, write
+\[
+L_{\cA}=(\operatorname{id}_{\cA}\times q_+)_!
+(\operatorname{id}_{\cA}\times a)^*.
+\]
+The second equality in \eqref{eq:affine-fiber-products} gives
+\begin{equation}\label{eq:second-triangle-family}
+L_{\cA}\mathcal K(H)\simeq q_{\mathscr V^0}^*\delta^*(LH).
+\end{equation}
+On $y=0$ the input is pulled back from $a^*H$ on $\mathscr V^+$. Composing the second endpoint with $q_+$ forgets $x$; the remaining change of group coordinates is $(h,g)\mapsto(h,hg)$, whose inverse gives $\delta$. Base change for $(q_+)_!$ proves \eqref{eq:second-triangle-family}. Its two evaluated fibers are $LH$, with the zero-fiber identification $\theta_{LH}:LELH\simeq LH$. Compatibility of $\sigma$ with $a^*$ and $(q_+)_!$, and \eqref{eq:constant-specialization}, give
+\[
+L\varepsilon_H=\theta_{LH},\qquad
+(L\varepsilon)\circ(\eta L)=\operatorname{id}_L.
+\]
+This proves $E\dashv L$.
+
+\emph{The canonical exchange map.}
+The same argument includes the cases where one summand is zero. Taking $V_+=0$ gives $q_-^*\dashv s^*$, and taking $V_-=0$ gives $z_*\dashv(q_+)_!$. Comparison with the usual right adjoints shows that the following canonical maps are isomorphisms:
+\begin{equation}\label{eq:linear-contractions}
+\beta:(q_-)_*\xrightarrow{\sim}s^*,\qquad
+\gamma:z^!\simeq(q_+)_!z_*z^!\longrightarrow(q_+)_!.
+\end{equation}
+Here $\beta$ is restriction and $\gamma$ is induced by the counit for $z_*\dashv z^!$.
+
+The usual right adjoint of $E$ is $R=(q_-)_*b^!$. If $\varepsilon^R:ER\to\operatorname{id}$ is its counit, uniqueness of right adjoints gives the isomorphism
+\[
+\xi:R\xrightarrow{\eta R}LER\xrightarrow{L\varepsilon^R}L.
+\]
+We check its relation to \eqref{eq:linear-exchange}, denoted $\operatorname{Ex}$. The usual counit factors through $b_*b^!$. Using \eqref{eq:intersection-unit}, $\xi$ therefore factors as $\beta_{b^!}$ followed by $(q_+)_!$ of
+\[
+\phi_H:z_*s^*b^!H\simeq a^*b_*b^!H
+\longrightarrow a^*H.
+\]
+The mate of $\phi_H$ under $z_*\dashv z^!$ is precisely $\operatorname{Ex}_H$: taking mates of closed base change turns the counit for $b$ into $b^!$ of the unit $H\to a_*a^*H$. Consequently
+\[
+\xi=\gamma_{a^*}\circ\operatorname{Ex}\circ\beta_{b^!}.
+\]
+Since $\xi,\beta,\gamma$ are isomorphisms, the canonical exchange map is an isomorphism. Reversing all weights gives the exchange in the other direction.
+\end{proof}
+
+\begin{bprop}[Hyperbolic exchange under an integrality hypothesis]\label{prop:exchange}
+Let $A=\bigoplus_{q\in M}A_q$ be a graded discrete commutative $k$-algebra. Suppose finitely many homogeneous elements $h_1,\ldots,h_m\in A$ satisfy
+\begin{equation}\label{eq:integrality}
+A\text{ is integral over }A_0[h_1,\ldots,h_m].
+\end{equation}
+Neither $A$ nor $A_0$ is required to be of finite type over $k$. Define
+\[
+I_{<0}(A)=\langle A_q:q<0\rangle,\qquad
+I_{>0}(A)=\langle A_q:q>0\rangle,\qquad
+I_{\ne0}(A)=I_{<0}(A)+I_{>0}(A),
+\]
+and the quotient stacks
+\[
+\begin{aligned}
+\cY_A&=[\Spec A/T],&
+\cY_A^+&=[\Spec(A/I_{<0}(A))/T],\\
+\cY_A^-&=[\Spec(A/I_{>0}(A))/T],&
+\cY_A^0&=\Spec(A/I_{\ne0}(A))\times BT.
+\end{aligned}
+\]
+Their natural morphisms give a Cartesian square
+\begin{equation}\label{eq:graded-square}
+\begin{tikzcd}[column sep=large,row sep=large]
+\cY_A^0\ar[r,"s_A"]\ar[d,"z_A"']&\cY_A^-\ar[d,"b_A"]\\
+\cY_A^+\ar[r,"a_A"']&\cY_A.
+\end{tikzcd}
+\end{equation}
+For every $H\in\Det^+(\cY_A,\Lambda)$, the canonical exchange maps are isomorphisms in $\Det^+(\cY_A^0,\Lambda)$:
+\begin{equation}\label{eq:graded-exchange}
+z_A^*a_A^!H\xrightarrow{\sim}s_A^!b_A^*H,
+\qquad s_A^*b_A^!H\xrightarrow{\sim}z_A^!a_A^*H.
+\end{equation}
+The first map is the composite
+\[
+z_A^*a_A^!H\longrightarrow z_A^*a_A^!(b_A)_*b_A^*H
+\simeq s_A^!b_A^*H;
+\]
+the second is obtained by interchanging the signs.
+\end{bprop}
+
+\begin{proof}
+\emph{Finite homogeneous generation.}
+First suppose the algebra is finitely generated over its degree-zero ring. Remove degree-zero generators. A homogeneous surjection from a polynomial ring over $A_0$ embeds its quotient stack as a closed substack of a finite vector bundle over $\Spec A_0\times BT$. The squares of the three signed loci are Cartesian for this closed immersion, since the homogeneous surjection maps each signed ideal onto its counterpart. Closed pushforward, closed base change and adjunction transport the exchange map; closed pushforward on the fixed locus is conservative. It therefore suffices to prove the assertion for this vector bundle. No finite-presentation condition on the closed immersion is needed.
+
+Lemma~\ref{lem:affine} proves both canonical exchange maps for the vector bundle, completing this case.
+
+\emph{Comparison of the three closed loci.}
+Now put $B=A_0[h_1,\ldots,h_m]\subseteq A$, with its induced grading. If $x\in A_q$ is homogeneous, take a monic integral equation $x^d+b_1x^{d-1}+\cdots+b_d=0$ with $b_i\in B$. Its degree-$dq$ component is
+\[
+x^d+(b_1)_q x^{d-1}+\cdots+(b_d)_{dq}=0.
+\]
+For $q>0$ this gives $x^d\in I_{>0}(B)A$; for $q<0$ it gives $x^d\in I_{<0}(B)A$. The reverse inclusions of ideals are immediate, so
+\begin{equation}\label{eq:radicals}
+\begin{aligned}
+\sqrt{I_{>0}(B)A}&=\sqrt{I_{>0}(A)},&
+\sqrt{I_{<0}(B)A}&=\sqrt{I_{<0}(A)},\\
+\sqrt{I_{\ne0}(B)A}&=\sqrt{I_{\ne0}(A)}.&&
+\end{aligned}
+\end{equation}
+Consequently, for $\varepsilon\in\{+,-,0\}$ the closed immersion
+\begin{equation}\label{eq:nil-comparison}
+\cY_A^\varepsilon\longrightarrow\cY_A\times_{\cY_B}\cY_B^\varepsilon
+\end{equation}
+has a nil defining ideal. Topological invariance identifies its étale sheaf categories. This identifies the categories attached to these loci; it does not assert that the squares using $\cY_A^\varepsilon$ in place of the targets of \eqref{eq:nil-comparison} are Cartesian.
+
+\emph{Comparison of the exchange maps.}
+Let $\pi:\cY_A\to\cY_B$ and $\pi^\varepsilon:\cY_A^\varepsilon\to\cY_B^\varepsilon$ be the induced representable integral morphisms. Appendix A gives $t$-exactness, conservativity and arbitrary base change for their pushforwards. Using \eqref{eq:nil-comparison} and adjunction to closed base change gives
+\begin{equation}\label{eq:transport}
+\begin{aligned}
+z_B^*a_B^!\pi_*H
+&\simeq z_B^*(\pi^+)_*a_A^!H
+\simeq(\pi^0)_*z_A^*a_A^!H,\\
+s_B^!b_B^*\pi_*H
+&\simeq s_B^!(\pi^-)_*b_A^*H
+\simeq(\pi^0)_*s_A^!b_A^*H.
+\end{aligned}
+\end{equation}
+These isomorphisms identify $(\pi^0)_*$ of the first exchange map with the exchange map for $\pi_*H$: both are obtained from the adjunction unit $H\to(b_A)_*b_A^*H$ and the same base-change transformations. The finite-generation case applies to $B$ over the arbitrary degree-zero ring $A_0$. Conservativity of $(\pi^0)_*$ proves the first isomorphism for $A$. Interchanging the signs proves the second.
+\end{proof}
+
+\begin{thebibliography}{9}
+\small\setlength{\itemsep}{2pt}
+\bibitem{Verdier}J.-L. Verdier, \emph{Spécialisation de faisceaux et monodromie modérée}, Astérisque 101--102 (1983), 332--364, Section 8.
+\bibitem{DG}V. Drinfeld and D. Gaitsgory, \emph{On a theorem of Braden}, \href{https://arxiv.org/abs/1308.3786}{arXiv:1308.3786}, Proposition 2.6.3, Remark 2.6.5, and Sections 3.4--5.
+\bibitem{CP}D.-C. Cisinski and M. Pippi, \emph{Étale tame vanishing cycles over $[\A^1_S/\Gm]$}, \href{https://arxiv.org/abs/2209.13381}{arXiv:2209.13381}, Theorem 8.5.
+\bibitem{Stacks}The Stacks Project Authors, \emph{The Stacks Project}: Sections 59.89, 59.91, and \href{https://stacks.math.columbia.edu/tag/0F7H}{63.9} (direct image with proper support); Tags \href{https://stacks.math.columbia.edu/tag/09Z1}{09Z1} and \href{https://stacks.math.columbia.edu/tag/0EZM}{0EZM} (continuity), \href{https://stacks.math.columbia.edu/tag/0F09}{0F09} (base change along limits of smooth morphisms), \href{https://stacks.math.columbia.edu/tag/04C2}{04C2} (exactness and faithfulness of integral pushforward), \href{https://stacks.math.columbia.edu/tag/0EYP}{0EYP} (integral base change), and \href{https://stacks.math.columbia.edu/tag/04DZ}{04DZ} (topological invariance).
+\end{thebibliography}
+\end{document}
